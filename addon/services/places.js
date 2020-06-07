@@ -3,41 +3,49 @@ import Service from '@ember/service';
 
 export default class PlacesService extends Service {
   @tracked
-  renders;
+  isLoaded;
+
+  @tracked
+  renderFns;
 
   constructor() {
     super(...arguments);
 
-    this.renders = {};
+    this.isLoaded = false;
+    this.renderFns = {};
 
     document.onreadystatechange = () => {
       if (document.readyState === 'complete') {
+        this.isLoaded = true;
+
         this.renderAll();
       }
     };
   }
 
   addRender(elementId, fn) {
-    if (!this.renders[elementId]) {
-      this.renders[elementId] = fn;
+    if (!this.renderFns[elementId]) {
+      this.renderFns[elementId] = fn;
 
       this.renderAll();
     }
   }
 
   removeRender(elementId) {
-    if (this.renders[elementId]) {
-      delete this.renders[elementId];
+    if (this.renderFns[elementId]) {
+      delete this.renderFns[elementId];
 
       this.renderAll();
     }
   }
 
   renderAll() {
-    if (Object.keys(this.renders).length > 0) {
-      Object.keys(this.renders).forEach((elementId) => {
-        this.renders[elementId]();
-      });
+    if (this.isLoaded) {
+      if (Object.keys(this.renderFns).length > 0) {
+        Object.keys(this.renderFns).forEach((elementId) => {
+          this.renderFns[elementId]();
+        });
+      }
     }
   }
 }

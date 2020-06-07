@@ -9,14 +9,10 @@ import Component from '@glimmer/component';
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
 
+  element;
+
   @service
   places;
-
-  constructor() {
-    super(...arguments);
-
-    this.places.addRender(this._render.bind(this));
-  }
 
   @computed
   get config() {
@@ -51,6 +47,7 @@ export default class PlaceAutocompleteComponent extends Component {
   @action
   _initialize(element) {
     this.element = element;
+    this.places.addRender(this.elementId, this._render.bind(this));
   }
 
   @action
@@ -63,6 +60,7 @@ export default class PlaceAutocompleteComponent extends Component {
   @action
   _destroy() {
     google.maps.event.clearInstanceListeners(this.autocomplete);
+    this.places.removeRender(this.elementId);
   }
 
   @action

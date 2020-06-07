@@ -13,14 +13,6 @@ export default class PlacesService extends Service {
 
     this.isLoaded = false;
     this.renderFns = {};
-
-    document.onreadystatechange = () => {
-      if (document.readyState === 'complete') {
-        this.isLoaded = true;
-
-        this.renderAll();
-      }
-    };
   }
 
   addRender(elementId, fn) {
@@ -37,6 +29,12 @@ export default class PlacesService extends Service {
 
       this.renderAll();
     }
+  }
+
+  renderLoaded() {
+    this.isLoaded = true;
+
+    this.renderAll();
   }
 
   renderAll() {

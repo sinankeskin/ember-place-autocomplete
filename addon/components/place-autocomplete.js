@@ -76,8 +76,8 @@ export default class PlaceAutocompleteComponent extends Component {
   placeChanged() {
     const place = this.autocomplete.getPlace();
 
-    if (this.args.onPlaceChange && typeof this.args.onPlaceChange === 'function') {
-      this.args.onPlaceChange(place);
+    if (this.args.onSelect && typeof this.args.onSelect === 'function') {
+      this.args.onSelect(place);
     }
   }
 

@@ -3,8 +3,6 @@
   @value={{@value}}
   class="place-autocomplete"
   ...attributes
-  {{on 'focus' this._onFocus}}
-  {{on 'blur' this._onBlur}}
   {{did-insert this._initialize}}
   {{did-update this._update this._options}}
   {{will-destroy this._destroy}}

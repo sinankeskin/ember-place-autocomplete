@@ -63,20 +63,6 @@ export default class PlaceAutocompleteComponent extends Component {
     this.places.removeRender(this.elementId);
   }
 
-  @action
-  _onFocus() {
-    if (this.args.onFocus && typeof this.args.onFocus === 'function') {
-      this.args.onFocus();
-    }
-  }
-
-  @action
-  _onBlur() {
-    if (this.args.onBlur && typeof this.args.onBlur === 'function') {
-      this.args.onBlur();
-    }
-  }
-
   _render() {
     this.autocomplete = new google.maps.places.Autocomplete(this.element, this._options);
 

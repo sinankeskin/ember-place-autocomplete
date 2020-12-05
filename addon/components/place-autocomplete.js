@@ -1,10 +1,10 @@
 /* globals google */
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 import { getOwner } from '@ember/application';
-import { action, computed } from '@ember/object';
+import { guidFor } from '@ember/object/internals';
 import { isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
-import { guidFor } from '@ember/object/internals';
-import Component from '@glimmer/component';
 
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
@@ -14,14 +14,12 @@ export default class PlaceAutocompleteComponent extends Component {
   @service
   places;
 
-  @computed
   get config() {
     const _config = getOwner(this).resolveRegistration('config:environment') || {};
 
     return _config['ember-place-autocomplete'] || {};
   }
 
-  @computed('args.{,placeIdOnly}')
   get _options() {
     const options = {};
 

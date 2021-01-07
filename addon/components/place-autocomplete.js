@@ -17,7 +17,8 @@ export default class PlaceAutocompleteComponent extends Component {
 
   @cached
   get config() {
-    const _config = getOwner(this).resolveRegistration('config:environment') || {};
+    const _config =
+      getOwner(this).resolveRegistration('config:environment') || {};
 
     return _config['ember-place-autocomplete'] || {};
   }
@@ -65,7 +66,10 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   _render() {
-    this.autocomplete = new google.maps.places.Autocomplete(this.element, this._options);
+    this.autocomplete = new google.maps.places.Autocomplete(
+      this.element,
+      this._options
+    );
 
     this.autocomplete.addListener('place_changed', () => {
       this.placeChanged();

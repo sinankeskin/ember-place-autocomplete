@@ -8,7 +8,8 @@ module.exports = {
     var placeAutocompleteConfig = config['ember-place-autocomplete'] || {};
 
     if (type === (placeAutocompleteConfig.contentForType || 'head')) {
-      var src = placeAutocompleteConfig.src || '//maps.googleapis.com/maps/api/js',
+      var src =
+          placeAutocompleteConfig.src || '//maps.googleapis.com/maps/api/js',
         params = [],
         exclude = placeAutocompleteConfig.exclude,
         client = placeAutocompleteConfig.client,
@@ -44,9 +45,13 @@ module.exports = {
         src += '?' + params.join('&') + '&libraries=places';
 
         if (config.environment === 'test') {
-          content = '<script type="text/javascript" src="' + src + '"></script>';
+          content =
+            '<script type="text/javascript" src="' + src + '"></script>';
         } else {
-          content = '<script type="text/javascript" src="' + src + '" async defer></script>';
+          content =
+            '<script type="text/javascript" src="' +
+            src +
+            '" async defer></script>';
         }
       }
     }

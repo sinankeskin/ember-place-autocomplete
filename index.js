@@ -9,7 +9,8 @@ module.exports = {
 
     if (type === (placeAutocompleteConfig.contentForType || 'head')) {
       var src =
-          placeAutocompleteConfig.src || '//maps.googleapis.com/maps/api/js',
+          placeAutocompleteConfig.src ||
+          'https://maps.googleapis.com/maps/api/js',
         params = [],
         exclude = placeAutocompleteConfig.exclude,
         client = placeAutocompleteConfig.client,
@@ -51,7 +52,7 @@ module.exports = {
           content =
             '<script type="text/javascript" src="' +
             src +
-            '" async defer></script>';
+            '" async defer crossorigin="anonymous"></script>';
         }
       }
     }

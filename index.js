@@ -52,7 +52,7 @@ module.exports = {
           content =
             '<script type="text/javascript" src="' +
             src +
-            '" async defer crossorigin="anonymous"></script>';
+            '" async defer></script>';
         }
       }
     }

@@ -1,9 +1,9 @@
-import { action } from '@ember/object';
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 
 export default class ApplicationController extends Controller {
   @action
-  onPlaceChange(result) {
+  onSelect(result) {
     console.log(result);
   }
 }

@@ -93,14 +93,4 @@ export default class PlaceAutocompleteComponent extends Component {
       action(this);
     }
   }
-
-  // appendScript(src) {
-  //   let scriptTag = document.createElement('script');
-  //   scriptTag.src = src;
-  //   scriptTag.async = true;
-  //   scriptTag.defer = true;
-  //   scriptTag.crossOrigin = 'anonymous';
-
-  //   document.head.appendChild(scriptTag);
-  // }
 }

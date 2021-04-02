@@ -6,6 +6,7 @@ import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
 import { isPresent } from '@ember/utils';
 import { inject as service } from '@ember/service';
+import EmberError from '@ember/error';
 
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
@@ -69,7 +70,7 @@ export default class PlaceAutocompleteComponent extends Component {
     let intervalTime = 0;
 
     const interval = setInterval(() => {
-      for (let index = 0; index < 10; index++) {
+      for (let index = 0; index < 100; index++) {
         if (google && google.maps && google.maps.places) {
           this.element.disabled = false;
 
@@ -87,8 +88,14 @@ export default class PlaceAutocompleteComponent extends Component {
         }
 
         if (index > 0) {
-          intervalTime = 500;
+          intervalTime = 100;
         }
+      }
+
+      if (this.element.disabled) {
+        throw new EmberError(
+          "We tried 100 times but no luck. We couldn't load the google.maps.places api."
+        );
       }
 
       clearInterval(interval);

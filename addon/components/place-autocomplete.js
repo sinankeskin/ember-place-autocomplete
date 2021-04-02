@@ -5,16 +5,10 @@ import { cached } from '@glimmer/tracking';
 import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
 import { isPresent } from '@ember/utils';
-import { inject as service } from '@ember/service';
 import EmberError from '@ember/error';
 
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
-
-  element;
-
-  @service
-  places;
 
   @cached
   get config() {
@@ -50,11 +44,7 @@ export default class PlaceAutocompleteComponent extends Component {
   @action
   _initialize(element) {
     this.element = element;
-    this.places.addRender(this.elementId, this._render.bind(this));
-
-    if (!this.places.isLoaded) {
-      this.places.renderLoaded();
-    }
+    this._render();
   }
 
   @action
@@ -69,15 +59,13 @@ export default class PlaceAutocompleteComponent extends Component {
     if (this.autocomplete) {
       google.maps.event.clearInstanceListeners(this.autocomplete);
     }
-
-    this.places.removeRender(this.elementId);
   }
 
   _render() {
     let intervalTime = 0;
 
     const interval = setInterval(() => {
-      for (let index = 0; index < 100; index++) {
+      for (let index = 0; index < 1000; index++) {
         if (google && google.maps && google.maps.places) {
           this.autocomplete = new google.maps.places.Autocomplete(
             this.element,

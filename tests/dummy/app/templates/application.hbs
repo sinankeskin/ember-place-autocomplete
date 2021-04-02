@@ -1,15 +1,20 @@
-<PlaceAutocomplete
-  placeholder="Adres1"
-  @onSelect={{this.onSelect}}
-  @placeIdOnly={{true}}
-/>
-<PlaceAutocomplete
-  placeholder="Adres2"
-  @onSelect={{this.onSelect}}
-  @placeIdOnly={{true}}
-/>
-<PlaceAutocomplete
-  placeholder="Adres3"
-  @onSelect={{this.onSelect}}
-  @placeIdOnly={{true}}
-/>
+{{#if this.show}}
+  <PlaceAutocomplete
+    placeholder="Adres1"
+    @onSelect={{this.onSelect}}
+    @placeIdOnly={{true}}
+  />
+  <PlaceAutocomplete
+    placeholder="Adres2"
+    @onSelect={{this.onSelect}}
+    @placeIdOnly={{true}}
+  />
+  <PlaceAutocomplete
+    placeholder="Adres3"
+    @onSelect={{this.onSelect}}
+    @placeIdOnly={{true}}
+  />
+{{/if}}
+<button type="button" {{on 'click' this.onClick}}>
+  Tıkla
+</button>

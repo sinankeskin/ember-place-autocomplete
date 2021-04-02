@@ -47,12 +47,14 @@ module.exports = {
 
         if (config.environment === 'test') {
           content =
-            '<script type="text/javascript" src="' + src + '"></script>';
+            '<script type="text/javascript" src="' +
+            src +
+            '&callback=initMap"></script>';
         } else {
           content =
             '<script type="text/javascript" src="' +
             src +
-            '" async defer></script>';
+            '&callback=initMap" async defer></script>';
         }
       }
     }

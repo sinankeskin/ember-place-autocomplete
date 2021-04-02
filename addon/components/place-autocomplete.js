@@ -51,6 +51,10 @@ export default class PlaceAutocompleteComponent extends Component {
   _initialize(element) {
     this.element = element;
     this.places.addRender(this.elementId, this._render.bind(this));
+
+    if (!this.places.isLoaded) {
+      this.places.renderLoaded();
+    }
   }
 
   @action
@@ -62,7 +66,10 @@ export default class PlaceAutocompleteComponent extends Component {
 
   @action
   _destroy() {
-    google.maps.event.clearInstanceListeners(this.autocomplete);
+    if (this.autocomplete) {
+      google.maps.event.clearInstanceListeners(this.autocomplete);
+    }
+
     this.places.removeRender(this.elementId);
   }
 
@@ -103,10 +110,12 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   placeChanged() {
-    const place = this.autocomplete.getPlace();
+    if (this.autocomplete) {
+      const place = this.autocomplete.getPlace();
 
-    if (this.args.onSelect && typeof this.args.onSelect === 'function') {
-      this.args.onSelect(place);
+      if (this.args.onSelect && typeof this.args.onSelect === 'function') {
+        this.args.onSelect(place);
+      }
     }
   }
 

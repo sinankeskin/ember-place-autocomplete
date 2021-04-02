@@ -66,6 +66,8 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   _render() {
+    this.element.disabled = false;
+
     this.autocomplete = new google.maps.places.Autocomplete(
       this.element,
       this._options

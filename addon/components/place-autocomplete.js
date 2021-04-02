@@ -79,8 +79,6 @@ export default class PlaceAutocompleteComponent extends Component {
     const interval = setInterval(() => {
       for (let index = 0; index < 100; index++) {
         if (google && google.maps && google.maps.places) {
-          this.element.disabled = false;
-
           this.autocomplete = new google.maps.places.Autocomplete(
             this.element,
             this._options
@@ -91,6 +89,8 @@ export default class PlaceAutocompleteComponent extends Component {
           });
 
           this.onRenderCallback();
+          this.element.disabled = false;
+
           break;
         }
 

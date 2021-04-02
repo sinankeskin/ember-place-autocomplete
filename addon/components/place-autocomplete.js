@@ -66,18 +66,33 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   _render() {
-    this.element.disabled = false;
+    let intervalTime = 0;
 
-    this.autocomplete = new google.maps.places.Autocomplete(
-      this.element,
-      this._options
-    );
+    const interval = setInterval(() => {
+      for (let index = 0; index < 10; index++) {
+        if (google && google.maps && google.maps.places) {
+          this.element.disabled = false;
 
-    this.autocomplete.addListener('place_changed', () => {
-      this.placeChanged();
-    });
+          this.autocomplete = new google.maps.places.Autocomplete(
+            this.element,
+            this._options
+          );
 
-    this.onRenderCallback();
+          this.autocomplete.addListener('place_changed', () => {
+            this.placeChanged();
+          });
+
+          this.onRenderCallback();
+          break;
+        }
+
+        if (index > 0) {
+          intervalTime = 500;
+        }
+      }
+
+      clearInterval(interval);
+    }, intervalTime);
   }
 
   placeChanged() {

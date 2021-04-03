@@ -4,7 +4,6 @@ import { action } from '@ember/object';
 import { cached } from '@glimmer/tracking';
 import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
-import { isPresent } from '@ember/utils';
 import EmberError from '@ember/error';
 
 export default class PlaceAutocompleteComponent extends Component {
@@ -108,10 +107,8 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   onRenderCallback() {
-    const action = this.args.onRender;
-
-    if (isPresent(action) && typeof action === 'function') {
-      action(this);
+    if (this.args.onRender && typeof this.args.onRender === 'function') {
+      this.args.onRender(this);
     }
   }
 }

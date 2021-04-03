@@ -1,13 +1,18 @@
 /* globals google */
 import Component from '@glimmer/component';
+import EmberError from '@ember/error';
 import { action } from '@ember/object';
 import { cached } from '@glimmer/tracking';
 import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
-import EmberError from '@ember/error';
+import { later } from '@ember/runloop';
+import { tracked } from '@glimmer/tracking';
 
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
+
+  @tracked
+  intervalCount;
 
   @cached
   get config() {
@@ -40,6 +45,12 @@ export default class PlaceAutocompleteComponent extends Component {
     return options;
   }
 
+  constructor() {
+    super(...arguments);
+
+    this.intervalCount = 0;
+  }
+
   @action
   _initialize(element) {
     this.element = element;
@@ -61,39 +72,28 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   _render() {
-    let intervalTime = 0;
+    if (google && google.maps && google.maps.places) {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        this.element,
+        this._options
+      );
 
-    const interval = setInterval(() => {
-      for (let index = 0; index < 1000; index++) {
-        if (google && google.maps && google.maps.places) {
-          this.autocomplete = new google.maps.places.Autocomplete(
-            this.element,
-            this._options
-          );
+      this.autocomplete.addListener('place_changed', () => {
+        this.placeChanged();
+      });
 
-          this.autocomplete.addListener('place_changed', () => {
-            this.placeChanged();
-          });
+      this.onRenderCallback();
+    } else {
+      if (this.intervalCount < 1000) {
+        this.intervalCount++;
 
-          this.onRenderCallback();
-          this.element.disabled = false;
-
-          break;
-        }
-
-        if (index > 0) {
-          intervalTime = 100;
-        }
-      }
-
-      if (this.element.disabled) {
+        later(this, '_render', 100);
+      } else {
         throw new EmberError(
-          "We tried 100 times but no luck. We couldn't load the google.maps.places api."
+          "We tried 1000 times but no luck. We couldn't load the google.maps.places api."
         );
       }
-
-      clearInterval(interval);
-    }, intervalTime);
+    }
   }
 
   placeChanged() {
@@ -104,9 +104,13 @@ export default class PlaceAutocompleteComponent extends Component {
         this.args.onSelect(place);
       }
     }
+
+    document.querySelectorAll('.pac-container').forEach((el) => el.remove());
   }
 
   onRenderCallback() {
+    this.element.disabled = false;
+
     if (this.args.onRender && typeof this.args.onRender === 'function') {
       this.args.onRender(this);
     }

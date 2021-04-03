@@ -69,6 +69,8 @@ export default class PlaceAutocompleteComponent extends Component {
     if (this.autocomplete) {
       google.maps.event.clearInstanceListeners(this.autocomplete);
     }
+
+    document.querySelectorAll('.pac-container').forEach((el) => el.remove());
   }
 
   _render() {
@@ -104,8 +106,6 @@ export default class PlaceAutocompleteComponent extends Component {
         this.args.onSelect(place);
       }
     }
-
-    document.querySelectorAll('.pac-container').forEach((el) => el.remove());
   }
 
   onRenderCallback() {

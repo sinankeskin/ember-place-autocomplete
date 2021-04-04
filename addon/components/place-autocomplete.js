@@ -70,7 +70,7 @@ export default class PlaceAutocompleteComponent extends Component {
       google.maps.event.clearInstanceListeners(this.autocomplete);
     }
 
-    document.querySelectorAll('.pac-container').forEach((el) => el.remove());
+    document.querySelector('.pac-container')?.remove();
   }
 
   _render() {

@@ -15,6 +15,9 @@
     @placeIdOnly={{true}}
   />
 {{/if}}
-<button type="button" {{on 'click' this.onClick}}>
-  Tıkla
+<button type="button" {{on 'click' (fn (mut this.show) true)}}>
+  Göster
+</button>
+<button type="button" {{on 'click' (fn (mut this.show) false)}}>
+  Gizle
 </button>

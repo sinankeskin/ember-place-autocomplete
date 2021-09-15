@@ -11,8 +11,8 @@ import { tracked } from '@glimmer/tracking';
 export default class PlaceAutocompleteComponent extends Component {
   elementId = guidFor(this);
 
-  @tracked
-  intervalCount;
+  @tracked value;
+  @tracked intervalCount;
 
   @cached
   get config() {
@@ -54,6 +54,7 @@ export default class PlaceAutocompleteComponent extends Component {
   constructor() {
     super(...arguments);
 
+    this.value = this.args.value;
     this.intervalCount = 0;
   }
 
@@ -77,6 +78,13 @@ export default class PlaceAutocompleteComponent extends Component {
     }
 
     document.querySelector('.pac-container')?.remove();
+  }
+
+  @action
+  _updateValue(event) {
+    const _value = event.target.value;
+    this.value = _value;
+    this.args.onChange?.(_value);
   }
 
   _render() {

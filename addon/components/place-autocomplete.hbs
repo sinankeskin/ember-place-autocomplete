@@ -1,8 +1,10 @@
 <input
-  type="text"
-  class="place-autocomplete"
-  disabled="disabled"
+  type='text'
+  class='place-autocomplete'
+  disabled='disabled'
+  value={{this.value}}
   ...attributes
+  {{on 'input' this._updateValue}}
   {{did-insert this._initialize}}
   {{did-update this._update this._options}}
   {{will-destroy this._destroy}}

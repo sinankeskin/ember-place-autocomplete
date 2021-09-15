@@ -2,7 +2,7 @@
 import Component from '@glimmer/component';
 import EmberError from '@ember/error';
 import { action } from '@ember/object';
-import { cached } from 'tracked-toolbox';
+import { cached } from '@glimmer/tracking';
 import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
 import { later } from '@ember/runloop';

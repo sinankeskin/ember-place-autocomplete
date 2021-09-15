@@ -36,10 +36,16 @@ export default class PlaceAutocompleteComponent extends Component {
       }
     });
 
+    if (this.args.types) {
+      options.types = [...this.args.types];
+    }
+
     if (this.args.placeIdOnly) {
       delete options.placeIdOnly;
 
       options.fields = ['name', 'place_id'];
+    } else if (this.args.fields) {
+      options.fields = [...this.args.fields];
     }
 
     return options;

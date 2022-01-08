@@ -123,8 +123,6 @@ export default class PlaceAutocompleteComponent extends Component {
   }
 
   onRenderCallback() {
-    this.element.disabled = false;
-
     if (this.args.onRender && typeof this.args.onRender === 'function') {
       this.args.onRender(this);
     }

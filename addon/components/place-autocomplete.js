@@ -2,7 +2,6 @@
 import Component from '@glimmer/component';
 import EmberError from '@ember/error';
 import { action } from '@ember/object';
-import { cached } from '@glimmer/tracking';
 import { getOwner } from '@ember/application';
 import { guidFor } from '@ember/object/internals';
 import { later } from '@ember/runloop';
@@ -14,7 +13,6 @@ export default class PlaceAutocompleteComponent extends Component {
   @tracked value;
   @tracked intervalCount;
 
-  @cached
   get config() {
     const _config =
       getOwner(this).resolveRegistration('config:environment') || {};
@@ -22,7 +20,6 @@ export default class PlaceAutocompleteComponent extends Component {
     return _config['ember-place-autocomplete'] || {};
   }
 
-  @cached
   get _options() {
     const options = {};
 

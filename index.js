@@ -43,7 +43,7 @@ module.exports = {
           params.push('region=' + encodeURIComponent(region));
         }
 
-        src += '?' + params.join('&') + '&libraries=places';
+        src += '?' + params.join('&') + '&libraries=places&callback=initGooglePlaceAutocomplete';
 
         if (config.environment === 'test') {
           content =

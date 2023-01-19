@@ -47,12 +47,12 @@ module.exports = {
 
         if (config.environment === 'test') {
           content =
+            '<script type="text/javascript">window.initGooglePlaceAutocomplete = () => { };</script>' +
             '<script type="text/javascript" src="' + src + '"></script>';
         } else {
           content =
-            '<script type="text/javascript" src="' +
-            src +
-            '" async defer></script>';
+            '<script type="text/javascript">window.initGooglePlaceAutocomplete = () => { };</script>' +
+            '<script type="text/javascript" src="' + src + '" async defer></script>';
         }
       }
     }
